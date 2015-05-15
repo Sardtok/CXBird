@@ -74,7 +74,6 @@
         this.background.update(dt);
         this.background.draw(ctx);
         for (i = 0; i < pl.length; i++) {
-            this.renderPlayer(pl[i], ctx, dt);
             pl[i].ys += dt * g;
             pl[i].y += dt * pl[i].ys;
             pl[i].life += dt;
@@ -85,12 +84,13 @@
                 pl[i].y = floor - playerHeight;
                 pl[i].ys = 0;
             }
+            this.renderPlayer(pl[i], ctx, dt);
         }
         ctx.globalAlpha = 1;
         ctx.fillStyle = 'red';
         for (i = 0; i < bars.length; i++) {
-            this.renderBar(bars[i], ctx);
             bars[i].x -= dt * barSpeed;
+            this.renderBar(bars[i], ctx);
         }
     };
 
