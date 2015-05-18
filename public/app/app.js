@@ -53,7 +53,10 @@
         ctx = canvas.getContext('2d');
         ctx.drawImage(this, 0, 0, this.width, this.height);
         px = ctx.getImageData(0, this.height - 1, 1, 1).data;
-        document.body.style.backgroundColor = 'rgb(' + px[0] + ',' + px[1] + ',' + px[2] + ')';
+        setTimeout(function(){
+          document.body.style.backgroundColor = 'rgb(' + px[0] + ',' + px[1] + ',' + px[2] + ')';         
+        }, 50);
+
     };
     //start loading backgrounds, must be after onload event handler
     bg3Img.src = '/theme/bg3.png';

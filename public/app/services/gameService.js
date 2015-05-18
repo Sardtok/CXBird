@@ -33,6 +33,7 @@
                     theme: 'default',
                     highscores: [],
                     bars: [],
+                    interpolate: false,
                     watchGame: function () {
                         $socket.emit('watch');
                     },
@@ -166,6 +167,7 @@
                     }
                 }
                 game.bars = bars;
+                game.interpolate = false; //we got real values, do not interpolate before draw
             });
 
             $socket.on('highscores', function (data) {
@@ -175,11 +177,6 @@
                     for (i = 0; i < data.length; i++) {
                         game.highscores.push(data[i]);
                     }
-                });
-            });
-            $socket.on('theme', function (data) {
-                $rootScope.$apply(function () {
-                    game.theme = data;
                 });
             });
 

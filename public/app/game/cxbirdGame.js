@@ -67,31 +67,36 @@
             now = Date.now(),
             dt = now - this.time,
             self = this;
-        this.timer = window.requestAnimationFrame(function() { self.render(); });
+        this.timer = window.requestAnimationFrame(function(){self.render()});
 
         this.time = now;
         //this.renderBackground(ctx);
         this.background.update(dt);
         this.background.draw(ctx);
         for (i = 0; i < pl.length; i++) {
-            pl[i].ys += dt * g;
-            pl[i].y += dt * pl[i].ys;
-            pl[i].life += dt;
-            if (pl[i].y < 0) {
-                pl[i].y = 0;
-                pl[i].ys = 0;
-            } else if (pl[i].y > floor - playerHeight) {
-                pl[i].y = floor - playerHeight;
-                pl[i].ys = 0;
+            if(this.gameService.interpolate) {
+                pl[i].ys += dt * g;
+                pl[i].y += dt * pl[i].ys;
+                pl[i].life += dt;
+                if (pl[i].y < 0) {
+                    pl[i].y = 0;
+                    pl[i].ys = 0;
+                } else if (pl[i].y > floor - playerHeight) {
+                    pl[i].y = floor - playerHeight;
+                    pl[i].ys = 0;
+                }
             }
             this.renderPlayer(pl[i], ctx, dt);
         }
         ctx.globalAlpha = 1;
         ctx.fillStyle = 'red';
         for (i = 0; i < bars.length; i++) {
-            bars[i].x -= dt * barSpeed;
+            if(this.gameService.interpolate) {
+                bars[i].x -= dt * barSpeed;
+            }
             this.renderBar(bars[i], ctx);
         }
+        this.gameService.interpolate = true;
     };
 
 
@@ -123,7 +128,7 @@
             ctx.stroke();
             ctx.restore();
         }
-        if(p.score>1) {
+        if(p.score > 29) {
             if(!p.flame) {
                 p.flame = new cxbird.Flame(x, y, w/2);
             }

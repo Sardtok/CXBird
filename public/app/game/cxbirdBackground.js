@@ -13,16 +13,6 @@
     */
     var bg3Img = new Image();
 
-    bg3Img.onload = function () { //find the bottom left pixel of the background image to make a smooth transition. 
-        var canvas = document.createElement('canvas'), ctx, px;
-        canvas.width = this.width;
-        canvas.height = this.height;
-        ctx = canvas.getContext('2d');
-        ctx.drawImage(this, 0, 0, this.width, this.height);
-        px = ctx.getImageData(0, this.height-1, 1, 1).data;
-        document.body.style.backgroundColor = 'rgb(' + px[0] + ',' + px[1] + ',' + px[2] + ')';
-    };
-
     //start loading backgrounds, must be after onload event handler
     bg1Img.src = '/theme/bg1.png';
     bg2Img.src = '/theme/bg2.png';
